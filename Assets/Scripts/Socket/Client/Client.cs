@@ -1,31 +1,43 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
 using System.Net.Sockets;
-using System.Reflection;
 using System.Text;
 using System.Threading;
+using UnityEngine;
+using UnityEngine.VFX;
 
 namespace com.severgames.lib.Socket
 {
     class Client
     {
         const int port = 54324;
-        const string address = "127.0.0.1";
+        string address = "127.0.0.1";
         private byte[] dataOut = new byte[128];
         private byte[] data = new byte[128];
         private NetworkStream stream;
         private String message;
         StringBuilder builder;
+        bool isServer;
 
-        static void Main(string[] args)
+
+        private static Client instaint;
+        public static Client getClient()
         {
-            new Client();
+            if (instaint == null)
+            {
+                instaint = new Client();
+            }
+            return instaint;
         }
 
         public Client()
         {
+            isServer = false;
+            
+        }
+
+        public void run(String ip)
+        {
+            address = ip;
             Thread main = new Thread(new ThreadStart(Clienti));
             main.Start();
         }
@@ -35,12 +47,13 @@ namespace com.severgames.lib.Socket
             TcpClient client = null;
             try
             {
+                Debug.Log("полетели");
                 client = new TcpClient(address, port);
                 stream = client.GetStream();
                 data = new byte[128];
                 Thread th = new Thread(new ThreadStart(getMess));
                 th.Start();
-
+                sendText("QVersion:0.1 Name:Default");
                 while (true)
                 {
                     // ввод сообщения
@@ -57,13 +70,15 @@ namespace com.severgames.lib.Socket
                     while (stream.DataAvailable);
 
                     message = builder.ToString();
+                    Thread thh = new Thread(new ParameterizedThreadStart(work));
+                    thh.Start(message);
                     Console.WriteLine(message);
                   
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.Log(ex.Message);
             }
             finally
             {
@@ -71,6 +86,35 @@ namespace com.severgames.lib.Socket
             }
         }
 
+        public void work(object mesf)
+        {
+            String mess = mesf.ToString();
+            if (mess[0].Equals("S"))
+            {
+                if (mess[1].Equals("A"))
+                {
+                    isServer = true;
+                }
+            }
+            if (mess[0].Equals("S"))
+            {
+                spawn(mess.Substring(mess[1], mess[2]));
+            }
+            if (mess[0].Equals("M"))
+            {
+                move(mess.Substring(mess[1], mess[2]), Convert.ToDouble(mess.Substring(mess[3], mess[4])), Convert.ToDouble(mess.Substring(mess[5], mess[6])));
+            }
+        }
+
+        private void spawn(String name)
+        {
+            //TODO
+        }
+
+        private void move(String name,double x,double y)
+        {
+
+        }
 
         public void sendText(String text)
         {

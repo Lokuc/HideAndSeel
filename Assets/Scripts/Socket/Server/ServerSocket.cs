@@ -26,6 +26,13 @@ namespace com.severgames.lib.Socket
 
 		}
 
+		public void moveP(String name,double forseX,double forseY,int num)
+        {
+			
+        }
+
+		
+
 		public void sendMessageToAll(String mess,int no)
         {
 			for (int i = 0; i < clientCount; i++)

@@ -295,7 +295,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1099650643}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44fd2e2dfde804a4ca41273150c90501, type: 3}
+  m_Script: {fileID: 11500000, guid: e2017318d44621d4aaa7faf5f700287f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1215955924
@@ -460,12 +460,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1099650647}
-        m_TargetAssemblyTypeName: ButonListener, Assembly-CSharp
+        m_TargetAssemblyTypeName: LocalClient, Assembly-CSharp
         m_MethodName: onClick
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1843724866}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.InputField, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
