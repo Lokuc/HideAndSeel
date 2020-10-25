@@ -1,8 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using UnityEngine;
 
 namespace com.severgames.lib.Socket
 {
@@ -77,12 +77,7 @@ namespace com.severgames.lib.Socket
                 
             }else {
                 server.sendMessageToAll(mess, num);
-            }
-
-            //todo
-            if(mess[0].Equals("M"))
-            {
-                server.moveP(mess.Substring(mess[1],mess[2]),Convert.ToDouble(mess.Substring(mess[3],mess[4])), Convert.ToDouble(mess.Substring(mess[5], mess[6])),num);
+                Debug.Log(mess);
             }
         }
 

@@ -1,9 +1,8 @@
 ﻿using com.severgames.lib.Socket;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class LocalClient : MonoBehaviour
+public class ServerSettings : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -17,10 +16,11 @@ public class LocalClient : MonoBehaviour
         
     }
 
-    public void onClick(InputField inputField)
+    public void onClick()
     {
-        Debug.Log("gho");
-        //Client.getClient().run(inputField.text);
+        ServerSocket.getInstains();
+        //Client.getClient().run("192.168.0.103");
         SceneManager.LoadScene("MainGame");
+
     }
 }

@@ -15,12 +15,23 @@ namespace com.severgames.lib.Socket
 		private List<ClientHandler> client = new List<ClientHandler>();
 		private int clientCount = 0;
 		private List<Thread> threads = new List<Thread>();
+		private static ServerSocket serverSocket;
+		public static ServerSocket getInstains()
+        {
+            if (serverSocket == null)
+            {
+				serverSocket = new ServerSocket();
+            }
+			return serverSocket;
+        }
 	
 
 
 		public  ServerSocket()
 		{
 			Thread main = new Thread(new ThreadStart(Server));
+			
+			
 			main.Start();
 			
 
@@ -73,8 +84,13 @@ namespace com.severgames.lib.Socket
                     {
 						client[0].setServer(this);
                     }
-					threads.Add(new Thread(new ThreadStart(Server)));
-					threads[clientCount].Start();
+					//threads.Add(new Thread(new ThreadStart(Server)));
+					//threads[clientCount].Start();
+					if (clientCount == 0)
+					{
+						Thread.Sleep(50);
+						sendMessage("A", 0);
+					}
 					clientCount++;
 
 				}
