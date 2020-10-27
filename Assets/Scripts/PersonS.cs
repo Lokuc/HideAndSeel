@@ -10,6 +10,7 @@ public class PersonS : MonoBehaviour
     private Vector2 vector;
     public int forse;
     private Client client;
+    private int count = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class PersonS : MonoBehaviour
         rigidbody = person.GetComponent<Rigidbody2D>();
         vector = new Vector2();
         client = Client.getClient();
-        client.run("192.168.0.103");
+        client.run("127.0.0.1");
     }
 
     // Update is called once per frame
@@ -52,6 +53,8 @@ public class PersonS : MonoBehaviour
         if (vector.x != 0 || vector.y != 0)
         {
             client.sendText("M " + "client " + vector.x + " " + vector.y);
+            count++;
+            Debug.Log("SEND " + count);
         }
 
         rigidbody.AddForce(vector, ForceMode2D.Force);
